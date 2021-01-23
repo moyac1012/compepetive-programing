@@ -8,7 +8,7 @@ int main()
 {
     vector<vector<int>> c(3, vector<int>(3));
     rep(i,3) rep(j,3) cin >> c[i][j];
-    
+    rep(i,3)rep(j,3) cout << c[i][j];
     
     return 0;  
 }

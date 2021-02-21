@@ -6,8 +6,17 @@ ll GetDigit(ll num){ return log10(num)+1; } //numの桁数を求める
 using Graph = vector<vector<int>>;
 
 int main()
-{   
-     int l;
+{
+    int n,m;
+    cin >> n >> m;
 
+    Graph G(n);
+    for (int i = 0; i < m; ++i) {
+        int a, b;
+        cin >> a >> b;
+        G[a].push_back(b);
+    }
+
+    
     return 0;
 }

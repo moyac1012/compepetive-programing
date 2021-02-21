@@ -24,11 +24,11 @@ int main()
         else free++;
     }
     if(color.size() == 0) {
-        cout << 1 << " " << free << endl;;
+        cout << 1 << " " << min(8, free) << endl;
         return 0;
     }
     int maxcolors = free + color.size();
-    cout << color.size() << " " << maxcolors << endl;
+    cout << color.size() << " " << min(8, maxcolors) << endl;
 
     return  0;
 }

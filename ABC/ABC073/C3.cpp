@@ -8,8 +8,14 @@ int main()
 {
     int n,t;
     cin >> n >> t;
-    vector<int> t(n);
-    rep(i, n) cin >> t[i];
-    
+    vector<int> tn(n);
+    rep(i, n) cin >> tn[i];
+    unsigned long long total = 0;
+    for(int i = 0; i < n-1; i++){
+        if(tn[i+1] < tn[i] + t) total += tn[i+1] - tn[i];
+        else total += t;
+    }
+    total += t;
+    cout << total << endl;
     return 0;
 }

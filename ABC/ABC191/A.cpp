@@ -6,8 +6,13 @@ ll GetDigit(ll num){ return log10(num)+1; } //numの桁数を求める
 using Graph = vector<vector<int>>;
 
 int main()
-{   
-     int l;
-
+{
+    int v,t,s,d;
+    cin >> v >> t >> s >> d;
+    if(v*t <= d && d <= v*s){
+        cout << "No" << endl;
+    }else{
+        cout << "Yes" << endl;
+    }
     return 0;
 }

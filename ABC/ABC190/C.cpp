@@ -7,37 +7,38 @@ using Graph = vector<vector<int>>;
 
 int main()
 {
-    ll n,m;
+    int n,m;
     cin >> n >> m;
-    vector<ll> a(m), b(m);
+    vector<int> a(m), b(m);
     rep(i,m) cin >> a[i] >> b[i];
-    rep(i,m){
-        a[i]--; 
-        b[i]--;
-    }
-    ll k;
+    int k;
     cin >> k;
-    vector<ll> c(k), d(k);
+    vector<int> c(k), d(k);
     rep(i,k) cin >> c[i] >> d[i];
-    ll ans = 0, total = 0;
-     for (ll bit = 0; bit < (1<<k); ++bit) {
-        vector<ll> flag(k);
-        vector<ll> sara(n);
-        for (ll i = 0; i < k; ++i) {
+    int ans = 0, total = 0;
+     for (int bit = 0; bit < (1<<k); ++bit) {
+        vector<int> flag(k);
+        vector<int> sara(n);
+        for (int i = 0; i < k; ++i) {
             if (bit & (1<<i)) { 
                 flag[i]++;
-                cout << i << endl;
+                cout << i << "  ";
             }
         }
-        for(ll i = 0; i < k; i++){
+        cout << endl;
+        for(int i = 0; i < k; i++){
             if(flag[i] == 0){
-                sara[a[i]]++;
+                sara[a[i]-1]++;
             }else{
-                sara[b[i]]++;
+                sara[b[i]-1]++;
             }
         }
-        for (ll i = 0; i < m; ++i){
-            if(sara[a[i]] > 0 && sara[b[i]] > 0) total++;
+        // rep(i,n){
+        //     cout << flag[i] << " ";
+        // }
+        // cout << endl;
+        for (int i = 0; i < m; ++i){
+            if(sara[a[i]-1] > 0 && sara[b[i]-1] > 0) total++;
         }
         if(ans < total) ans = total;
         total = 0;

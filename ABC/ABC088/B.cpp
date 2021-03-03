@@ -4,23 +4,20 @@ using namespace std;
 using ll = long long;
 ll GetDigit(ll num){ return log10(num)+1; } //numの桁数を求める
 using Graph = vector<vector<int>>;
-ll inf = 1e5;
+
 int main()
 {
     int n;
     cin >> n;
-    vector<ll> sq(inf);
-    rep(i,inf){
-        sq[i] = i*i;
+    vector<int> a(n);
+    rep(i,n) cin >> a[i];
+    sort(a.begin(), a.end());
+    reverse(a.begin(), a.end());
+    int alice = 0, bob = 0;
+    rep(i,a.size()){
+        if(i%2 == 0) alice += a[i];
+        else bob += a[i];
     }
-    int ans = inf;
-    int dist = inf;
-    for(int i = 0; i < inf; i++){
-        if(abs(sq[i] - n) < dist) {
-            ans = sq[i];
-            dist = abs(sq[i] - n);
-        }
-    }
-    cout << ans << endl;
+    cout << alice - bob << endl;
     return 0;
 }

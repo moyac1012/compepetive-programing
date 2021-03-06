@@ -8,11 +8,7 @@
 
 ``` c++
 int gcd(int a,int b){
-    if(a < b){
-        int t = b;
-        b = a;
-        a = t;
-    }
+    if(a < b) swap(a, b);
     while(a%b != 0){
         int r = a%b;
         a = b;
@@ -29,6 +25,7 @@ int gcd(int a,int b){
 
 ```c++
 int gcd(int a,int b){
+  	if(a < b) swap(a, b);	
 		if(b == 0) return a;
 		return gcd(b,a%b);
 }
@@ -66,9 +63,52 @@ int gcd(int a,int b){
 
 - $\frac{a}{b}$の切り上げは一般に$\frac{a+b-1}{b}$を整数で計算することで得られる。 
 
+  
 
+## 全探索
 
+### bit探索
 
+[Qiita - bit全探索について簡単にまとめる](https://qiita.com/hareku/items/3d08511eab56a481c7db)
 
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
 
+int main() {
+    int n = 3;
 
+    // {0, 1, ..., n-1} の部分集合の全探索
+    for (int bit = 0; bit < (1<<n); ++bit) {
+        vector<int> S;
+        for (int i = 0; i < n; ++i) {
+            if (bit & (1<<i)) { // 列挙に i が含まれるか
+                S.push_back(i);
+            }
+        }
+
+        cout << bit << ": {";
+        for (int i = 0; i < (int)S.size(); ++i) {
+            cout << S[i] << " ";
+        }
+        cout << "}" << endl;
+    }
+}
+```
+
+標準出力：
+
+```C++
+0: {}
+1: {0 }
+2: {1 }
+3: {0 1 }
+4: {2 }
+5: {0 2 }
+6: {1 2 }
+7: {0 1 2 }
+```
+
+- **`(1<<n)`**は$2^n$のこと。なので最初のfor文は合計$2^3=8$回る。
+- **`　if( bit & (1<<i) )`**bitの中に`i`が含まれるかを判定をするANDの役割

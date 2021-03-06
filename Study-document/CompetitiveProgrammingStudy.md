@@ -112,3 +112,21 @@ int main() {
 
 - **`(1<<n)`**は$2^n$のこと。なので最初のfor文は合計$2^3=8$回る。
 - **`　if( bit & (1<<i) )`**bitの中に`i`が含まれるかを判定をするANDの役割
+
+## 範囲の全探索（？）
+
+こういう状況の時を考えてる。$x_1$から$x_n$までは昇順または降順に並んでるとする。
+
+<img src="/Users/tamoriyuuto/compepetive-programing/Study-document/img/zentansaku_hani.png" alt="zentansaku_hani" style="zoom:50%;" />
+
+一つの幅を`k`とするとき、探索するべき幅の数は`n-k+1`個になる。
+昇順・降順だから、`x[i]`から`x[i+k-1]`までの値の幅は間の値によらず、`x[i+k-1]-x[i]`で求めることができる。
+
+
+
+#### スクショの場所変更
+
+```bash
+defaults write com.apple.screencapture location ~/(保存先dir)/;killall SystemUIServer
+```
+

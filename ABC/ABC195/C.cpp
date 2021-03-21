@@ -11,12 +11,11 @@ int main(){
     string s;
     cin >> s;
     string q = "9999";
+    ll n = stoi(s)
     ll ans = 0;
-    while(s.length() > q.length()){
-        ans += pow(10, q.length()); 
-        q += '9';
+    rep(i,s.length()){
+        
     }
-    ans += ((s.length()-1)/3) * ( n - pow(10, s.length()-1) ) + 1;
-    cout << ans << endl;
     return 0;
+
 }

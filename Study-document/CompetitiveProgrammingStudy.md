@@ -1,5 +1,8 @@
-
 # 競プロ勉強日誌
+
+[toc]
+
+
 
 ## ユークリッドの互除法
 
@@ -122,11 +125,60 @@ int main() {
 一つの幅を`k`とするとき、探索するべき幅の数は`n-k+1`個になる。
 昇順・降順だから、`x[i]`から`x[i+k-1]`までの値の幅は間の値によらず、`x[i+k-1]-x[i]`で求めることができる。
 
+## 制約が小さいときは全探索を疑え！！！！！！！！！！！！！！！！！！１
+
+タイトルの通りです。[ARC114 A問題](https://atcoder.jp/contests/arc114/tasks/arc114_a)から。（ここでは`bit探索`）
+
+## 整数から整数への関数
+
+[ARC114 B問題](https://atcoder.jp/contests/arc114/tasks/arc114_b)
+
+- 整数から整数への関数は**グラフ**(`functional graph`)で考える！！
+
+$S \in \mathbb{N}$で写像$f:S \rightarrow S$を考える。この時、$T\subseteq S, T \not = \phi , f:T \rightarrow T$が全単射になるようなものはいくつあるかという問題（あってるか怪しい）。
+
+こういう整数から整数への関数を考えるときはグラフにするといい。(`functional graph`と呼ばれる形になる)。
+
+今回の問題では、全単射を満たすためには選ぶ節点はサイクルになってなくてはならない。また、`functional graph`ではサイクル数は**弱連結成分数**に等しいため、サイクル数を数えるには無向グラフとして考えて探索アルゴリズムを走らせればいい（サイクルを判定するアルゴリズムはちょっと面倒らしい）。
+
+サイクル数を$C$とすると、そのサイクルを選ぶか選ばないかの2通りなので答えは$2^C-1$で求まる。
+
+## 深さ優先探索
+
+- 再帰での実装。これは無向グラフの`連結成分数`を数えている。
+
+```c++
+vector<bool> seen;
+void dfs(Graph &G, int v){
+    seen[v] = true;
+    for(auto next_v : G[v]) {
+        if(seen[next_v]) continue;
+        dfs(G, next_v);
+    }
+}
+int main(){
+	 Graph G(n);
+    rep(i,n){
+        G[b].push_back(a);
+        G[a].push_back(b);
+    }
+
+    seen.assign(n, false);
+    int cnt = 0;
+    for(int v = 0; v < n; v++){
+        if(seen[v]) continue;
+        dfs(G, v);
+        cnt++;
+    }
+}
+```
 
 
-#### スクショの場所変更
+
+# スクショの場所変更
 
 ```bash
 defaults write com.apple.screencapture location ~/(保存先dir)/;killall SystemUIServer
 ```
 
+## 

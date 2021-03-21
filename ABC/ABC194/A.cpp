@@ -7,10 +7,12 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    double a,b,w;
-    cin >> a >> b >> w;
-    w *= 1000;
-    if()
-    cout << ceil(w/b) << " " << foor(w/a) << endl;
-    
+    int a,b;
+    cin >> a >> b;
+    int w = a + b;
+    if(w >= 15 && b >= 8) cout << 1 << endl;
+    else if(w >= 10 && b >= 3) cout << 2 << endl;
+    else if(w >= 3) cout << 3 << endl;
+    else cout << 4 << endl;
+    return 0;
 }

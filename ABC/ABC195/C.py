@@ -1,8 +1,16 @@
-n = input()
-n = int(n)
+n = int(input())
 ans = 0
-for i in range(len(str(n)) + 1):
-    if i == 0:
-        continue
-    ans += ((i-1)//3)*(n-pow(10, len(str(n))-1))
+if n >= 1000:
+    ans += n - 999
+if n >= 1000000:
+    ans += n - 999999
+if n >= 1000000000:
+    ans += n - 999999999
+if n >= 1000000000000:
+    ans += n - 999999999999
+if n >= 1000000000000000:
+    ans += n - 999999999999999
+if n >= 1000000000000000000:
+    ans += n - 999999999999999999
+
 print(ans)

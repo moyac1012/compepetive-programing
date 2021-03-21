@@ -7,10 +7,6 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    double a,b,w;
-    cin >> a >> b >> w;
-    w *= 1000;
-    if()
-    cout << ceil(w/b) << " " << foor(w/a) << endl;
     
+    return 0;
 }

@@ -1,2 +1,1 @@
-s = input()
-print(s.split('.')[0])
+print((input()).split('.')[0])

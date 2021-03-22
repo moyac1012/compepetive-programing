@@ -145,32 +145,105 @@ $S \in \mathbb{N}$で写像$f:S \rightarrow S$を考える。この時、$T\subs
 
 ## 深さ優先探索
 
+### 無向グラフの連結成分数
+
 - 再帰での実装。これは無向グラフの`連結成分数`を数えている。
 
 ```c++
-vector<bool> seen;
+vector<bool> seen;	//節点vを訪問したかどうかを記憶する配列
 void dfs(Graph &G, int v){
-    seen[v] = true;
-    for(auto next_v : G[v]) {
-        if(seen[next_v]) continue;
-        dfs(G, next_v);
+    seen[v] = true;	//入力節点vを訪問済みにする
+    for(auto next_v : G[v]) {		//すべてのvに隣接している節点について
+        if(seen[next_v]) continue;	//すでに探索済みだったらスルー
+        dfs(G, next_v);		//それ以外で、その点からdfsを始める
     }
 }
 int main(){
+   int n, m; 
+   cin >> n >> m;
 	 Graph G(n);
     rep(i,n){
         G[b].push_back(a);
         G[a].push_back(b);
     }
 
-    seen.assign(n, false);
+    seen.assign(n, false);	//seen配列をfalseで初期化
     int cnt = 0;
-    for(int v = 0; v < n; v++){
-        if(seen[v]) continue;
-        dfs(G, v);
-        cnt++;
+    for(int v = 0; v < n; v++){		//すべての節点からdfsを行う
+        if(seen[v]) continue;		//訪問済みならスルー
+        dfs(G, v);　//dfs
+        cnt++;	　//dfsが終わったら連結成分数を一個足す
     }
 }
+```
+
+### グリッドグラフの迷路問題
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+#define rep(i,n) for(int i = 0; i < (int)(n); i++)
+using Graph = vector<vector<int>>;
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
+
+int h, w;
+vector<string> maze;
+
+bool seen[510][510] = {};
+void dfs(int sh, int sw){ //sh, swはスタート地点
+    seen[sh][sw] = 1;	//訪れたところをtrueにする
+
+    for(int i = 0;i < 4; i++){
+        int nh = sh + dx[i];
+        int nw = sw + dy[i];	//4方向全てについて
+
+        if(nh < 0 || nw < 0 || nh >= h || nw >= w) continue;		//壁外
+        if(maze[nh][nw] == '#') continue;		//壁
+        if(seen[nh][nw] == 1) continue;			//訪問済み
+
+        dfs(nh, nw);
+    }
+}
+
+int main(){
+    cin >> h >> w;
+    maze.resize(h);
+    rep(i,h) cin >> maze[i];
+    int sh, sw, gh, gw;
+    rep(i,h)rep(j,w){
+        if(maze[i][j] == 's') sh = i, sw = j;		//スタートの特定
+        if(maze[i][j] == 'g') gh = i, gw = j;		//ゴールの特定
+    }
+
+    dfs(sh, sw);
+
+    if(seen[gh][gw] == 1) cout << "Yes" << endl;
+    else cout << "No" << endl;
+
+    return 0;
+}
+```
+
+## 木DP
+
+- 各頂点の根からの距離（深さ）
+- 各頂点の部分木サイズ（部分木に含まれる頂点数）
+
+を求める。
+
+深さは再帰関数に深さの情報を追加することで求める。
+具体的には、dfsを一回再帰するごとに引数で渡す深さ`d`を1増やす。
+
+部分木サイズは、
+
+- (`v`を根とする部分木サイズ) = (`v`の子の部分木サイズの**総和**)+1
+
+で求められる。逆に言えば`v`の部分木サイズを求めるには、`v` の**全ての子についての部分木サイズがわかっている必要がある。**そのため、**帰りがけ**に計算を行う。
+
+```c++
+
 ```
 
 

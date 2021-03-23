@@ -1,26 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
 using ll = long long;
-ll GetDigit(ll num){ return log10(num)+1; } //numの桁数を求める
-int gcd(int a, int b)
-{
-   if (a%b == 0)
-   {
-       return(b);
-   }
-   else
-   {
-       return(gcd(b, a%b));
-   }
-}
-int main()
-{
-    ll N,K;
-    cin >> N >> K;
-    if(N == 1 || K == 1){
-        cout << 0 << endl;
-    }else{
-        cout << gcd(N,K) << endl;
-    }
+#define rep(i,n) for(int i = 0; i < (int)(n); i++)
+using Graph = vector<vector<int>>;
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
+
+int main(){
+    ll n,k;
+    cin >> n >> k;
+    ll ans = min(n%k, abs((n%k)-k) );
+    cout << ans << endl;
+    return 0;
 }

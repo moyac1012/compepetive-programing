@@ -299,11 +299,54 @@ int main(){
 2. 配列`X`の先頭から走査、`true`の要素があったら素数配列`p`に追加し、`X`の`p^2`以上の`p`の倍数の要素を`false`にする。これを、`sqrt(x)`まで行う。
 3. 最後まで`true`だった要素の添字を`p`に追加。
 
-<details><summary>なんで$\sqrt x$ まででいいの？</summary>
-  素数の除去作業が$\sqrt x$まででいいのが疑問だったのでちょっと調べたら納得。
-  エラトステネスの篩において、素数$p$について除去作業を行う必要があるのは、$p*p$以上の整数からです。
-  なので、$p*p$が求めたい配列`X`の要素数を超えていたら求める必要はなくなるわけですね。よって、除去作業を行う必要があるのは$p$を素数とした時に$ p*p \leq x$が成り立つ素数$p$となるわけです。
-</details>
+#### なんで$\sqrt x$ まででいいのか
+
+エラトステネスの篩において、素数$p$について除去作業を行う必要があるのは、$p^2$以上の整数からです。なので、$p^2$が求めたい配列`X`の要素数を超えていたら求める必要はなくなります。よって、除去作業を行う必要があるのは$p$を素数とした時に$ p^2 \leq x$が成り立つ素数 $p$ となり、$p \leq \sqrt x$ となります。
+
+[ABC149 - NextPrime](https://atcoder.jp/contests/abc149/tasks/abc149_c)
+
+オーバーキル。
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+#define rep(i, n) for (int i = 0; i < (int)(n); i++)
+using ll = long long;
+ll GetDigit(ll num){ return log10(num)+1; } //numの桁数を求める
+void hurui(vector<bool> &num, int x){
+    for(int i = 0; i <= num.size(); i++){
+        if(num[i] == true && i%x == 0) num[i] = false;
+    }
+}
+int main()
+{
+    ll x;
+    cin >> x;
+    vector<bool> num(100010);
+    num[0] = false;
+    num[1] = false;
+    for(int i = 2; i <= 100010; i++){
+        num[i] = true;
+    }
+    vector<int> p;
+    for(int i = 2; i < sqrt(100010); i++){
+        if(num[i] == true){
+            p.push_back(i);
+            hurui(num, i);
+        }
+    }
+    for(int i = 2; i < 100010; i++){
+        if(num[i] == true) p.push_back(i);
+    }
+    rep(i,p.size()){
+        if(p[i] >= x){
+            cout << p[i] << endl;
+            return 0;
+        }
+    }
+    return 0;
+}
+```
 
 
 

@@ -226,7 +226,7 @@ int main(){
 }
 ```
 
-## 木DP
+### 木DP
 
 - 各頂点の根からの距離（深さ）
 - 各頂点の部分木サイズ（部分木に含まれる頂点数）
@@ -243,8 +243,69 @@ int main(){
 で求められる。逆に言えば`v`の部分木サイズを求めるには、`v` の**全ての子についての部分木サイズがわかっている必要がある。**そのため、**帰りがけ**に計算を行う。
 
 ```c++
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+#define rep(i,n) for(int i = 0; i < (int)(n); i++)
+using Graph = vector<vector<int>>;
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
+vector<int> depth;  //深さ
+vector<int> subtree_size;	//部分木サイズ
+void dfs(const Graph &G, int v, int p, int d){
+    depth[v] = d;
+    for(auto next_v : G[v]){
+        if(next_v == p) continue;
+        dfs(G, next_v, v, d+1);
+    }
 
+    subtree_size[v] = 1;
+    for(auto c : G[v]){
+        if(c == p) continue;
+        subtree_size[v] += subtree_size[c];
+    }
+
+}
+
+int main(){
+    int n; cin >> n;
+    Graph G(n);
+    depth.assign(n, 0);
+    subtree_size.assign(n,0);
+    rep(i,n-1){
+        int a, b; cin >> a >> b;
+        a--; b--;
+        G[a].push_back(b);
+        G[b].push_back(a);
+    }
+    int root = 0;
+    dfs(G, root, -1, 0);
+    rep(i,n){
+        cout << i + 1 << ": depth = " << depth[i] << ", subtree_size = " << subtree_size[i] << endl;
+    }
+    return 0;
+}
 ```
+
+## エラトステネスの篩（ある範囲の素数を求める）
+
+[wiki - エラトステネスの篩](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%A9%E3%83%88%E3%82%B9%E3%83%86%E3%83%8D%E3%82%B9%E3%81%AE%E7%AF%A9)
+
+面白い記事も見つけた。ここまでしなくてもいいとは思うけど、参考に。[エラトステネスの篩の高速化](https://qiita.com/peria/items/a4ff4ddb3336f7b81d50)
+
+`x`までの素数の配列を高速に手に入れることを考える。
+
+1. 要素数`x`の配列`X`(ここでは`1-index`とする)の最初の要素を`false`、それ以外を`true`にする。
+2. 配列`X`の先頭から走査、`true`の要素があったら素数配列`p`に追加し、`X`の`p^2`以上の`p`の倍数の要素を`false`にする。これを、`sqrt(x)`まで行う。
+3. 最後まで`true`だった要素の添字を`p`に追加。
+
+<details><summary>なんで$\sqrt x$ まででいいの？</summary>
+  素数の除去作業が$\sqrt x$まででいいのが疑問だったのでちょっと調べたら納得。
+  エラトステネスの篩において、素数$p$について除去作業を行う必要があるのは、$p*p$以上の整数からです。
+  なので、$p*p$が求めたい配列`X`の要素数を超えていたら求める必要はなくなるわけですね。よって、除去作業を行う必要があるのは$p$を素数とした時に$ p*p \leq x$が成り立つ素数$p$となるわけです。
+</details>
+
+
 
 
 

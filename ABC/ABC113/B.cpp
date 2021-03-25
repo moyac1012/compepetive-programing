@@ -15,7 +15,6 @@ int main(){
     ll ans = 1e18;
     ll temp = 1e18;
     rep(i,n){
-        cout << abs(a - (t - (h[i]*6))) << endl;
         if(temp > abs(a - (t - (h[i]*6)))){
             temp = abs(a - (t - (h[i]*6)));
             ans = i + 1;

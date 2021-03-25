@@ -127,7 +127,7 @@ int main() {
 
 ## 制約が小さいときは全探索を疑え！！！！！！！！！！！！！！！！！！１
 
-タイトルの通りです。[ARC114 A問題](https://atcoder.jp/contests/arc114/tasks/arc114_a)から。（ここでは`bit探索`）
+タイトルの通りです。[ARC114 A問題](https://atcoder.jp/contests/arc114/tasks/arc114_a)から学びました。（ここでは`bit探索`）
 
 ## 整数から整数への関数
 
@@ -350,9 +350,43 @@ int main()
 
 
 
+## C++のmapについて簡単に（連想配列）
+
+### 宣言
+
+```c++
+map<string, int> m;
+```
+
+多分よく使うのはこういう感じ
+
+```c++
+for(int i = 0; i < n; i++){
+	map[s[i]]++;	//自動でs[i]をmapに追加してインクリメントしてくれる
+}
+```
+
+### 全要素検索
+
+コンテナなので型は`auto`で推論してイテレータぶん回せばOK
+
+```c++
+for (auto i = cnt.begin(); i != cnt.end(); ++i) {
+        cout << i->first << " => " << i->second << endl;
+    }
+```
+
+これだと昇順なので、降順に検索したいときは`rbegin`、`rend`を使う。
+
+```c++
+for (auto i = cnt.rbegin(); i != cnt.rend(); ++i) {
+        cout << i->first << " => " << i->second << endl;
+    }
+```
 
 
-# スクショの場所変更
+
+#### スクショの場所変更
 
 ```bash
 defaults write com.apple.screencapture location ~/(保存先dir)/;killall SystemUIServer

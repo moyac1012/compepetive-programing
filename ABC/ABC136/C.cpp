@@ -8,16 +8,13 @@ const int dy[4] = {0, 1, 0, -1};
 
 int main(){
     int n; cin >> n;
-    vector<string> w(n);
-    rep(i,n) cin >> w[i];
-    set<string> word;
-    rep(i,n) word.insert(w[i]);
-    if(word.size() != n){
-        cout << "No" << endl;
-        return 0;
-    }
-    rep(i,n-1){
-        if(w[i][w[i].length()-1] != w[i+1][0]){
+    vector<int> h(n);
+    rep(i,n) cin >> h[i];
+    reverse(h.begin(), h.end());
+    int minv = 1e9+1;
+    rep(i,n){
+        minv = min(minv, h[i]);
+        if(minv + 1 < h[i]){
             cout << "No" << endl;
             return 0;
         }

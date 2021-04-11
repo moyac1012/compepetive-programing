@@ -9,6 +9,17 @@ int main()
 {
     int n;
     cin >> n;
-    
+    vector<int> x(n), y(n);
+    rep(i,n) cin >> x[i] >> y[i];
+    int cnt = 0;
+    rep(i,n){
+        rep(j,n){
+            if(i == j) continue;
+            int a = abs(y[i]-y[j])/abs(x[i]-x[j]);
+            if(abs(y[i]-y[j]) == abs(x[i]-x[j]) || a == 0) cnt++;
+            
+        }
+    }
+    cout << cnt/2 << endl;
     return 0;
 }

@@ -7,9 +7,15 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    double n;
-    double x0,y0; cin >> x0 >> y0;
-    double d = 360/n;
-    
+    int n;
+    cin >> n;
+    vector<ll> a(n);
+    rep(i,n) cin >> a[i];
+    ll x = 0, y = 0;
+    rep(i,n) x += a[i]*a[i];
+    x *= n;
+    rep(i,n) y += a[i];
+    y *= y;
+    cout << x - y << endl;
     return 0;
 }

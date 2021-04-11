@@ -1,37 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
 using ll = long long;
-ll GetDigit(ll num){ return log10(num)+1; } //numの桁数を求める
+#define rep(i,n) for(int i = 0; i < (int)(n); i++)
 using Graph = vector<vector<int>>;
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
 
-int main()
-{
-    int n, m, t;
-    cin >> n >> m >> t;
-    int c = n;
-    int beforea = 0,beforeb = 0;
-    rep(i,m){
-        int a,b;
-        cin >> a >> b;
-        n -= a - beforeb;
-        if(n <= 0){
-            cout << "No" << endl;
-            return 0;
-        }
-        n += b - a;
-        n = min(n, c);
-        beforea = a;
-        beforeb = b;
+int main(){
+    int h,w; cin >> h >> w;
+    vector<vector<int>> a(h, vector<int>(w));
+    rep(i,h) rep(j,w) cin >> a[i][j];
+    int minv = 101;
+    rep(i,h) rep(j,w){
+        minv = min(a[i][j], minv);
     }
-    n -= t - beforeb;
-    if(n <= 0){
-            cout << "No" << endl;
-            return 0;
+    int ans = 0;
+    rep(i,h)rep(j,w){
+        ans += a[i][j] - minv;
     }
-    cout << "Yes" << endl;
-
-
-
-    return 0;
+    cout << ans << endl;
+    return 0;   
 }

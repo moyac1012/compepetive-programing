@@ -384,6 +384,25 @@ for (auto i = cnt.rbegin(); i != cnt.rend(); ++i) {
     }
 ```
 
+## ３項演算子(Python)
+
+[Qiita-三項演算子](https://qiita.com/howmuch515/items/bf6d21f603d9736fb4a5)(Python)
+
+例えばこういう条件で分けたい時、
+
+```python
+if n == 10:
+    x = "Yes"
+else :
+    x = "No"
+```
+
+三項演算子ではこうなる
+
+```python
+x = "Yes" if n == 10 else "No"
+```
+
 
 
 #### スクショの場所変更
@@ -393,3 +412,4 @@ defaults write com.apple.screencapture location ~/(保存先dir)/;killall System
 ```
 
 ## 
+

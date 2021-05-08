@@ -5,12 +5,18 @@ using ll = long long;
 using Graph = vector<vector<int>>;
 const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
+ll gcd(ll a, ll b){
+    if(a < b) swap(a,b);
+    if(b == 0) return a;
+    return gcd(b, a%b);
+}
 
+ll lcm(ll a, ll b){
+    return (a/gcd(a, b))*b;
+}
 int main(){
-    int n;
-    cin >> n;
-    vector<int> a(n),b(n),c(n),d(n),e(n);
-    rep(i,n) cin >> a[i] >> b[i] >> c[i] >> d[i] >> e[i];
-    rep(i,n)
+    ll a,b;
+    cin >> a >> b;
+    cout << lcm(a,b) << endl;
     return 0;
 }

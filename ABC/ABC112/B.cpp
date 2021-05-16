@@ -8,17 +8,17 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    int n,x;
-    cin >> n >> x;
-    vector<int> m(n);
-    rep(i,n) cin >> m[i];
-    sort(m.begin(), m.end());
-    int cnt = 0;
-    rep(i,n) {
-        cnt++;
-        x -= m[i];
+    int n,t;
+    cin >> n >> t;
+    vector<pair<int, int>> ct(n);
+    rep(i,n) cin >> ct[i].first >> ct[i].second;
+    sort(ct.begin(), ct.end());
+    rep(i,n){
+        if(ct[i].second <= t){
+            cout << ct[i].first << endl;
+            return 0;
+        }
     }
-    cnt += (int)(x/m[0]);
-    cout << cnt << endl;
+    cout << "TLE" << endl;
     return 0;
 }

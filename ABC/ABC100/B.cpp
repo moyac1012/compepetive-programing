@@ -8,17 +8,10 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    int n,x;
-    cin >> n >> x;
-    vector<int> m(n);
-    rep(i,n) cin >> m[i];
-    sort(m.begin(), m.end());
-    int cnt = 0;
-    rep(i,n) {
-        cnt++;
-        x -= m[i];
-    }
-    cnt += (int)(x/m[0]);
-    cout << cnt << endl;
-    return 0;
+    ll d,n;
+    cin >> d >> n;
+    if(d == 0) cout << n << endl;
+    else if(d == 1) cout << 100*n << endl;
+    else cout << 10000*n << endl;
+    return 0;   
 }

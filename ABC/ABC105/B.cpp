@@ -8,17 +8,16 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    int n,x;
-    cin >> n >> x;
-    vector<int> m(n);
-    rep(i,n) cin >> m[i];
-    sort(m.begin(), m.end());
-    int cnt = 0;
-    rep(i,n) {
-        cnt++;
-        x -= m[i];
+    int n;
+    cin >> n;
+    vector<vector<int>> total(50, vector<int>(50));
+    rep(i,50)rep(j,50) total[i][j] = i*4 + j*7;
+    rep(i,50)rep(j,50) {
+        if(total[i][j] == n) {
+            cout << "Yes" << endl;
+            return 0;
+        }
     }
-    cnt += (int)(x/m[0]);
-    cout << cnt << endl;
+    cout << "No" << endl;
     return 0;
 }

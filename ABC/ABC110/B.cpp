@@ -8,17 +8,21 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    int n,x;
-    cin >> n >> x;
-    vector<int> m(n);
-    rep(i,n) cin >> m[i];
-    sort(m.begin(), m.end());
-    int cnt = 0;
-    rep(i,n) {
-        cnt++;
-        x -= m[i];
+    int n,m,x,y; cin >> n >> m >> x >> y;
+    int mxx = x, mny = y;
+    rep(i,n){
+        int xi;
+        cin >> xi;
+        mxx = max(mxx, xi);
     }
-    cnt += (int)(x/m[0]);
-    cout << cnt << endl;
+    rep(i,m){
+        int yi;
+        cin >> yi;
+        mny = min(mny, yi);
+    }
+    if(mxx < mny) cout << "No War" << endl;
+    else cout << "War" << endl;
+
+
     return 0;
 }

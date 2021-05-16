@@ -8,17 +8,11 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    int n,x;
-    cin >> n >> x;
-    vector<int> m(n);
-    rep(i,n) cin >> m[i];
-    sort(m.begin(), m.end());
-    int cnt = 0;
-    rep(i,n) {
-        cnt++;
-        x -= m[i];
-    }
-    cnt += (int)(x/m[0]);
-    cout << cnt << endl;
+    ll a,b,c,k;
+    cin >> a >> b >> c >> k;
+    ll mx = max(a, max(b,c));
+    ll mn = min(a, min(b,c));
+    ll ans = mx * pow(2,k) + a + b + c - mx;
+    cout << ans <<endl;
     return 0;
 }

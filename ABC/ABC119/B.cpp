@@ -8,11 +8,15 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    ll d,n;
-    cin >> d >> n;
-    if(n == 100) n++;
-    if(d == 0) cout << n << endl;
-    else if(d == 1) cout << 100*n << endl;
-    else cout << 10000*n << endl;
-    return 0;   
+    int n; cin >> n;
+    double ans = 0;
+    rep(i,n){
+        double x;
+        string u;
+        cin >> x >> u;
+        if(u == "JPY") ans += x;
+        else ans += 380000*x;
+    }
+    printf("%.10lf\n", ans);
+    return 0;
 }

@@ -8,11 +8,13 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    ll d,n;
-    cin >> d >> n;
-    if(n == 100) n++;
-    if(d == 0) cout << n << endl;
-    else if(d == 1) cout << 100*n << endl;
-    else cout << 10000*n << endl;
-    return 0;   
+    int n; cin >> n;
+    vector<int> l(n);
+    rep(i,n) cin >> l[i];
+    sort(l.begin(), l.end(), greater<int>());
+    int sum = 0;
+    Rep(i,1,n) sum += l[i];
+    if(l[0] < sum) cout << "Yes" << endl;
+    else cout << "No" << endl;
+    return 0;
 }

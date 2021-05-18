@@ -8,11 +8,15 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    ll d,n;
-    cin >> d >> n;
-    if(n == 100) n++;
-    if(d == 0) cout << n << endl;
-    else if(d == 1) cout << 100*n << endl;
-    else cout << 10000*n << endl;
-    return 0;   
+    int n;
+    cin >> n;
+    int mx = 0;
+    int ans = 0;
+    rep(i,n){   
+        int h; cin >> h;
+        if(mx <= h) ans++;
+        mx = max(mx, h);
+    }
+    cout << ans << endl;
+    return 0;
 }

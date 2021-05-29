@@ -8,11 +8,8 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    double n; cin >> n;
-    double ans = 0;
-    for(int i = 1; i < n; i++){
-        ans += n/(n-(double)i);
-    }
-    printf("%.10lf\n", ans);
+    int a,b,c;
+    cin >> a >> b >> c;
+    cout << 21 - a - b - c << endl;
     return 0;
 }

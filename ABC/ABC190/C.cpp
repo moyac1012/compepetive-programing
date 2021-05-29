@@ -1,12 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
 using ll = long long;
-ll GetDigit(ll num){ return log10(num)+1; } //numの桁数を求める
+#define rep(i,n) for(int i = 0; i < (int)(n); i++)
+#define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
 using Graph = vector<vector<int>>;
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
 
-int main()
-{
+int main(){
     int n,m;
     cin >> n >> m;
     vector<int> a(m), b(m);
@@ -15,34 +16,22 @@ int main()
     cin >> k;
     vector<int> c(k), d(k);
     rep(i,k) cin >> c[i] >> d[i];
-    int ans = 0, total = 0;
-     for (int bit = 0; bit < (1<<k); ++bit) {
-        vector<int> flag(k);
-        vector<int> sara(n);
-        for (int i = 0; i < k; ++i) {
-            if (bit & (1<<i)) { 
-                flag[i]++;
-                cout << i << "  ";
-            }
+    rep(i,m) a[i]--, b[i]--;
+    rep(i,k) c[i]--, d[i]--;
+    
+    int ans = 0;
+    for(int bit = 0; bit < (1<<k); bit++){
+        vector<int> dish(n);
+        for(int i = 0; i < k;i++){
+            if(bit & (1<<i)) dish[c[i]]++;
+            else dish[d[i]]++;
         }
-        cout << endl;
-        for(int i = 0; i < k; i++){
-            if(flag[i] == 0){
-                sara[a[i]-1]++;
-            }else{
-                sara[b[i]-1]++;
-            }
+        int cnt = 0;
+        rep(i,m){
+            if(dish[a[i]] >= 1 && dish[b[i]] >= 1) cnt++;
         }
-        // rep(i,n){
-        //     cout << flag[i] << " ";
-        // }
-        // cout << endl;
-        for (int i = 0; i < m; ++i){
-            if(sara[a[i]-1] > 0 && sara[b[i]-1] > 0) total++;
-        }
-        if(ans < total) ans = total;
-        total = 0;
-     }
-     cout << ans << endl;
-    return 0;
+        ans = max(ans, cnt);
+    }
+    cout << ans << endl;
+    return 0;   
 }

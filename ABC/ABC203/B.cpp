@@ -8,7 +8,14 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    int n,l; cin >> n >> l;
-    
+    int n,k;
+    cin >> n >> k;
+    ll ans = 0;
+    Rep(i,1,n+1){
+        Rep(j,1,k+1){
+            ans += i*100+j;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

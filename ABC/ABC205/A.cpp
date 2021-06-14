@@ -8,13 +8,9 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    int n; cin >> n;
-    int ans = 0;
-    rep(i,n){
-        int a; cin >> a;
-        a -= 10;
-        if(a >= 0) ans += a;
-    }
-    cout << ans << endl;
+    double a,b; cin >> a >> b;
+    double ans = (b/100.0)*a;
+    printf("%.10lf\n", ans);
+
     return 0;
 }

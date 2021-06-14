@@ -8,13 +8,14 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
 int main(){
-    int n; cin >> n;
-    int ans = 0;
-    rep(i,n){
-        int a; cin >> a;
-        a -= 10;
-        if(a >= 0) ans += a;
-    }
-    cout << ans << endl;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    rep(i,n) cin >> a[i];
+    sort(a.begin(), a.end());
+    vector<int> b(n);
+    rep(i,n) b[i] = i+1;
+    if(a == b) cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }

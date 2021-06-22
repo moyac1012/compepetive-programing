@@ -11,35 +11,25 @@ template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) ret
 template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
 
 int main(){
-    int n,q; cin >> n >> q;
-    vector<int> a(n);
-    rep(i,n) cin >> a[i];
-    int p = 0;
-    rep(qi, q){
+    int q; cin >> q;
+    deque<ll> deq;
+    rep(qi,q){
         int t; cin >> t;
+        int x;
         if(t == 1){
-            int x,y;
-            cin >> x >> y;
-            x--; y--;
-            swap(a[(x+p)%n], a[(y+p)%n]);
+            cin >> x;
+            deq.push_front(x);
         }
-
         if(t == 2){
-            int x,y;
-            cin >> x >> y;
-            p--;
-            p += n;
-            p %= n;
+            cin >> x;
+            deq.push_back(x);
         }
-
         if(t == 3){
-            int x,y;
-            cin >> x >> y;
-            x--;
-            cout << a[(x+p)%n] << endl;
+            cin >> x; x--;
+            cout << deq[x] << endl;
         }
-        //cout << "p: " << p << endl;
-        //print_vec(a);
+        // rep(i,deq.size()) cout << deq[i] << " ";
+        // cout << endl;
     }
     return 0;
 }

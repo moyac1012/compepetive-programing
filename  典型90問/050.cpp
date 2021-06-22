@@ -9,37 +9,21 @@ const int dy[4] = {0, 1, 0, -1};
 template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout << vec[i] << ' '; cout << endl; }
 template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) return a; return gcd(b,a%b); }
 template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
-
+ll MOD = 1e9+7;
 int main(){
-    int n,q; cin >> n >> q;
-    vector<int> a(n);
-    rep(i,n) cin >> a[i];
-    int p = 0;
-    rep(qi, q){
-        int t; cin >> t;
-        if(t == 1){
-            int x,y;
-            cin >> x >> y;
-            x--; y--;
-            swap(a[(x+p)%n], a[(y+p)%n]);
+    int n,l; cin >> n >> l;
+    vector<int> dp(100001);
+    dp[0] = 1;
+    rep(i,100001){
+        if(i+1 <= 100000) {
+            dp[i+1] += dp[i];
+            dp[i+1] %= MOD;
         }
-
-        if(t == 2){
-            int x,y;
-            cin >> x >> y;
-            p--;
-            p += n;
-            p %= n;
+        if(i+l <= 100000) {
+            dp[i+l] += dp[i];
+            dp[i+1] %= MOD;
         }
-
-        if(t == 3){
-            int x,y;
-            cin >> x >> y;
-            x--;
-            cout << a[(x+p)%n] << endl;
-        }
-        //cout << "p: " << p << endl;
-        //print_vec(a);
     }
+    cout << dp[n] << endl;
     return 0;
 }

@@ -12,39 +12,29 @@ template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
 template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
 
 int main(){
-    int n,k; cin >> n >> k;
-    string s;
-    cin >> s;
-    vector<vector<int>> a(n+1,vector<int>(26, -1));
-    //cout << 'a' - 97 << endl;
-    for(int i = n-1; i >= 0; i--){
-        rep(j,26){
-            int num = s[i] - 97;
-            if(j == num) a[i][j] = i;
-            else a[i][j] = a[i+1][j];
-        }
+    int n,q; 
+    cin >> n >> q;
+    vector<ll> a(n);
+    rep(i,n) cin >> a[i];
+    vector<ll> b(n-1);
+    rep(i,n-1) b[i] = a[i+1] - a[i];
+    ll ans = 0;
+    rep(i,n-1) ans += abs(b[i]);
+    //cout << ans << endl;
+    rep(qi,q){
+        ll l,r; cin >> l >> r;
+        l--; r--;
+        ll v; cin >> v;
+        ll oldbl = 0, oldbr = 0, newbl = 0, newbr = 0;
+        if(l-1 >= 0) oldbl = abs(b[l-1]);
+        if(r <= n-2) oldbr = abs(b[r]);
+        if(l-1 >= 0) b[l-1] += v;
+        if(r <= n-2) b[r] -= v;
+        if(l-1 >= 0) newbl = abs(b[l-1]);
+        if(r <= n-2) newbr = abs(b[r]);
+        ans += newbl - oldbl + newbr - oldbr;
+        cout << ans << endl;
+        //print_vec(b);
     }
-
-    // rep(i,a.size()){
-    //     rep(j,a[i].size()){
-    //         cout << a[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
-    string ans = "";
-    int cur = 0;
-    int p = k;
-    rep(i,p){
-        for(int j = 0; j < 26; j++){
-            if(n - a[cur][j] >= k && a[cur][j] != -1){
-                k--;
-                ans += (char)(j + 97);
-                cur = a[cur][j] + 1;
-                break;
-            }
-        }
-    }
-    cout << ans << endl;
     return 0;
 }

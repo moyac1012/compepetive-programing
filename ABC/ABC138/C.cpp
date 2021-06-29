@@ -12,9 +12,18 @@ template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
 template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
 
 int main(){
-    int a; cin >> a;
-    string s; cin >> s;
-    if(a >= 3200) cout << s << endl;
-    else cout << "red" << endl;
-    return 0;  
+    int n; cin >> n;
+    vector<double> v(n);
+    rep(i,n) cin >> v[i];
+    sort(v.begin(), v.end(), greater<double>());
+    while(v.size() != 1){
+        //print_vec(v);
+        double nv = (v[n-1] + v[n-2])/2;
+        n--;
+        v.pop_back();
+        v.pop_back();
+        v.push_back(nv);
+    }
+    cout << v[0] << endl;
+    return 0;
 }

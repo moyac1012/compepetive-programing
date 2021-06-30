@@ -6,25 +6,23 @@ using ll = long long;
 using Graph = vector<vector<int>>;
 const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
+template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout << vec[i] << ' '; cout << endl; }
+template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) return a; return gcd(b,a%b); }
+template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
+template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
 
-int main(){
-    ll n;
-    cin >> n;
-    vector<ll> a(n), b(n), c(n);
-    rep(i,n) cin >> a[i];
-    rep(i,n) cin >> b[i];
-    rep(i,n) cin >> c[i];
-    rep(i,n) {
-        a[i]--;
-        b[i]--;
-        c[i]--;
-    }
-    vector<ll> cnt(n);
-    rep(i,n) cnt[a[i]]++;
+int main(){ 
+    int n; cin >> n;
+    vector<ll> a(n+1),b(n+1),c(n+1);
+    Rep(i,1,n+1) cin >> a[i];
+    Rep(i,1,n+1) cin >> b[i];
+    Rep(i,1,n+1) cin >> c[i];
+    vector<ll> acnt(n+1);
+    Rep(i,1,n+1) acnt[a[i]]++;
     ll ans = 0;
-    rep(i,n){
-        ans += cnt[b[c[i]]];
+    Rep(i,1,n+1){
+        ans += acnt[b[c[i]]];
     }
     cout << ans << endl;
-    return 0;
+    return 0;   
 }

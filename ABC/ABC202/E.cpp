@@ -1,78 +1,53 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-#define rep(i,n) for(ll i = 0; i < (ll)(n); i++)
-#define Rep(i,j,n) for(ll i = j; i < (ll)(n); i++)
-using Graph = vector<vector<ll>>;
-const ll dx[4] = {1, 0, -1, 0};
-const ll dy[4] = {0, 1, 0, -1};
+#define rep(i,n) for(int i = 0; i < (int)(n); i++)
+#define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
+using Graph = vector<vector<int>>;
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
+template<typename T_n> void print_vec(vector<T_n> vec, int n) { rep(i,n) cout << vec[i] << ' '; cout << endl; }
+template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) return a; return gcd(b,a%b); }
+template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
+template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
+Graph G(1001001);
+vector<int> b(1001001), e(1001001);
+vector<vector<int>> l(300005);
+int k = 0;
+void dfs(int v, int dp, int p = -1){
+    b[v] = k++;
+    l[dp].push_back(b[v]);
+    for(int nv : G[v]){
+        if(nv == p) continue;
+        dfs(nv, dp+1, v);
+    }
+    e[v] = k++;
+}
 
 int main(){
-    ll n;
-    cin >> n;
-    Graph G(n);
-    rep(i,n-1){
-        ll a;
-        cin >> a; a--;
-        G[a].push_back(i+1);
-        G[i+1].push_back(a);
+    int n; cin >> n;
+    vector<int> p(n);
+    Rep(i,1,n) {
+        cin >> p[i];
+        p[i]--;
     }
-
-    vector<vector<ll>> h(n);
-    vector<vector<ll>> f(n,vector<ll>(n));
-    vector<ll> dist(n, -1); 
-    queue<ll> que;
-
-    dist[0] = 0;
-    que.push(0);
-    while (!que.empty()) {
-        ll v = que.front(); 
-        que.pop();
-
-        // v から辿れる頂点をすべて調べる
-        f[v][v]++;
-        for (ll nv : G[v]) {
-            if (dist[nv] != -1) continue; 
-            f[nv][v]++;
-            rep(i,n){
-                if(f[v][i] >= 1) f[nv][i]++;
-            }
-            dist[nv] = dist[v] + 1;
-            que.push(nv);
-        }
+    Rep(i,1,n){
+        G[i].push_back(p[i]);
+        G[p[i]].push_back(i);
     }
-
-    for(ll v = 0; v < n; v++){
-        if(dist[v] != -1) h[dist[v]].push_back(v);
-    }
-
-    // rep(i,f.size()){
-    //     cout << i << " : ";
-    //     rep(j,f[i].size()){
-    //         cout  << f[i][j] << " ";
-    //     }
+    // rep(i,n){
+    //     cout << i << ": ";
+    //     for(int v : G[i]) cout << v << " ";
     //     cout << endl;
     // }
-    // rep(i,h.size()){
-    //     cout << i << " : ";
-    //     rep(j,h[i].size()){
-    //         cout << h[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
-    ll q; cin>> q;
-    rep(i,q){
-        ll u,d;
-        cin >> u >> d;
+    dfs(0, 0);
+    //print_vec(depth,n);
+    int q;
+    cin >> q;
+    rep(qi,q){
+        int u,d; cin >> u >> d;
         u--;
-        ll ans = 0;
-        rep(j, h[d].size()){
-            if(f[h[d][j]][u] >= 1) ans++;
-        }
-        cout << ans << endl;
+        cout << lower_bound(l[d].begin(), l[d].end(), e[u]) - lower_bound(l[d].begin(), l[d].end(), b[u]) << endl;
     }
-
     return 0;
-
 }

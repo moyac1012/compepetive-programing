@@ -10,13 +10,25 @@ template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout 
 template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) return a; return gcd(b,a%b); }
 template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
 template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
-
+ll MOD = 1e9+7;
 int main(){
-    int a,b,c,d;
-    cin >> a >> b >> c >> d;
-    int r1 = a*b;
-    int r2 = c*d;
-    if(r1 >= r2) cout << r1 << endl;
-    else cout << r2 << endl;
+    int n; cin >> n;
+    vector<ll> a(n+1);
+    Rep(x,2,n+1){
+        int y = x;
+        for(int i = 2; i * i <= x; i++){
+            while(y%i == 0){
+                a[i]++;
+                y /= i;
+            }
+        }
+        if(y != 1) a[y]++;
+    }
+    ll ans = 1;
+    rep(i,n+1){
+        ans *= a[i]+1;
+        ans %= MOD;
+    }
+    cout << ans << endl;
     return 0;
 }

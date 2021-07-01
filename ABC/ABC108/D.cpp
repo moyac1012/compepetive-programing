@@ -11,9 +11,35 @@ template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) ret
 template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
 template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
 
+vector<ll> u,v,w;
+void pb(ll a, ll b, ll c){
+    u.push_back(a);
+    v.push_back(b);
+    w.push_back(c);
+}
+
 int main(){
-    int n; cin >> n;
-    if(n%2 == 0) cout << (n/2)*(n/2) << endl;
-    else cout << floor(n/2) * (floor(n/2)+1) << endl;
+    ll l; cin >> l;
+    ll n = 3, m = 3;
+    pb(1,2,0);
+    pb(2,3,0);
+    pb(1,3,1);
+    ll i = 2;
+    while(i != l){
+        if(i*2 <= l){
+            n++;
+            rep(i,w.size()) w[i] *= 2;
+            pb(n-1,n,1);
+            pb(n-1,n,0);
+            m += 2;
+            i *= 2;
+        }else{
+            pb(1,n,i);
+            i++;
+            m++;
+        }
+    }
+    cout << n << " " << m << endl;
+    rep(i,u.size()) cout << u[i] << " " << v[i] << " " << w[i] << endl;
     return 0;
 }

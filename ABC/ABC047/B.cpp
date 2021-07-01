@@ -1,28 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i, n) for (int i = 0; i < (int)(n); i++)
 using ll = long long;
-ll GetDigit(ll num){ return log10(num)+1; } //numの桁数を求める
+#define rep(i,n) for(int i = 0; i < (int)(n); i++)
+#define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
+using Graph = vector<vector<int>>;
+const int dx[4] = {1, 0, -1, 0};
+const int dy[4] = {0, 1, 0, -1};
+template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout << vec[i] << ' '; cout << endl; }
+template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) return a; return gcd(b,a%b); }
+template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
+template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
 
-int main()
-{
-    int w,h,n;
-    cin >> w >> h >> n;
-    int l = 0, r = w, d = 0, u = h;
-    vector<int>x(n);
-    vector<int>y(n);
-    vector<int>a(n);
-    rep(i,n) {
-        cin >> x[i] >> y[i] >> a[i];
+int main(){
+    string s;
+    cin >> s;
+    int n = s.length();
+    int cnt1 = 0, cnt2 = 0;
+    char c = s[0];
+    Rep(i,1,n) {
+        if(c != s[i]){
+            c = s[i];
+            cnt1++;
+        }
     }
-    rep(i,n){
-        if(a[i] == 1 && x[i] > l) l = x[i];
-        if(a[i] == 2 && x[i] < r) r = x[i];
-        if(a[i] == 3 && y[i] > d) d = y[i];
-        if(a[i] == 4 && y[i] < u) u = y[i];
+    c = s[n-1];
+    for(int i = n-2; i >= 0; i--) {
+        if(c != s[i]){
+            c = s[i];
+            cnt2++;
+        }
     }
-    
-    if(r-l <= 0 || u-d <= 0) cout << 0 << endl;
-    else cout << (r-l)*(u-d) << endl;
+    cout << min(cnt1, cnt2) << endl;
     return 0;
 }

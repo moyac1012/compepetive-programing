@@ -8,14 +8,14 @@ const int dy[4] = {0, 1, 0, -1};
 
 int main(){
     ll n;
-    string s;
-    cin >> s;
-    string q = "9999";
-    ll n = stoi(s)
+    cin >> n;
     ll ans = 0;
-    rep(i,s.length()){
-        
-    }
+    if(n >= 999) ans += n - 999;
+    if(n >= 999999) ans += n - 999999;
+    if(n >= 999999999) ans += n - 999999999;
+    if(n >= 999999999999) ans += n - 999999999999;
+    if(n >= 999999999999999) ans += n - 999999999999999;
+    cout << ans << endl;
     return 0;
 
 }

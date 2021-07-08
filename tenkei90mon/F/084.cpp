@@ -20,7 +20,7 @@ int main(){
     string s;
     cin >> s;
     ll all = f(n);
-    int cnt = 1;
+    ll cnt = 1;
     rep(i,n-1){
         if(s[i] == s[i+1]) cnt++;
         else{

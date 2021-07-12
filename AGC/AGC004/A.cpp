@@ -14,13 +14,12 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    vector<int> v(3);
+    vector<ll> v(3);
     rep(i,3) cin >> v[i];
     rep(i,3) if(v[i]%2 == 0){
         cout << 0 << endl;
         return 0;
     }
-    sort(v.begin(), v.end());
-    cout << v[0] * v[1] << endl;
+    cout << min({v[0]*v[1], v[1]*v[2], v[0]*v[2]}) << endl;
     return 0;
 }

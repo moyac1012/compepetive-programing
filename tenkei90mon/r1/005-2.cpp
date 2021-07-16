@@ -60,12 +60,12 @@ int main(){
     rep(i,b)rep(j,b) A.x[i][j] = 0;
     rep(i,b)rep(j,k) A.x[i][(i*10+c[j])%b] += 1;
 
-    rep(i,b){
-        rep(j,b){
-            cout<< A.x[i][j] << " ";
-        }
-        cout << endl;
-    }
+    // rep(i,b){
+    //     rep(j,b){
+    //         cout<< A.x[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
     Matrix D = powers(A,n);
     cout << D.x[0][0] << endl;
     

@@ -14,30 +14,26 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    int a,b,c;
-    cin >> a >> b >> c;
-    int ecnt = 0;
+    vector<int> v(3);
+    rep(i,3) cin >> v[i];
+    int e = 0, o = 0;
+    rep(i,3){
+        if(v[i]%2 == 0) e++;
+        else o++;
+    }
     int cnt = 0;
-    if(a%2 == 0) ecnt++;
-    if(b%2 == 0) ecnt++;
-    if(c%2 == 0) ecnt++;
-    if(ecnt == 2){
-        if(a%2 == 0) a++;
-        if(b%2 == 0) b++;
-        if(c%2 == 0) c++;
+    if(e == 2) {
+        rep(i,3) if(v[i]%2 == 0) v[i]++; 
         cnt++;
+    }else if(o == 2){
+      rep(i,3) if(v[i]%2 == 1) v[i]++;  
+      cnt++;
     }
-    if(ecnt == 1){
-        if(a%2 == 1) a++;
-        if(b%2 == 1) b++;
-        if(c%2 == 1) c++;
-        cnt++;
+    int m = *max_element(v.begin(), v.end());
+    rep(i,3){
+        cnt += (m - v[i])/2;
     }
-    int m = max({a,b,c});
-    cnt += (m - a)/2;
-    cnt += (m - b)/2;
-    cnt += (m - c)/2;
     cout << cnt << endl;
-    
+
     return 0;
 }

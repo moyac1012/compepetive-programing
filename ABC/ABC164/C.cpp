@@ -14,21 +14,13 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    int a,b,c,d;
-    cin >> a >> b >> c >> d;
-    int cnt = 0;
-    while(a > 0 && c > 0){
-        if(cnt%2 == 0){
-            c -= b;
-        }else{
-            a -= d;
-        }
-        cnt++;
+    set<string> st;
+    int n; 
+    cin >> n;
+    rep(i,n){
+        string s; cin >> s;
+        st.insert(s);
     }
-    if(c <= 0){
-        cout << "Yes" << endl;
-    }else{
-        cout << "No" << endl;
-    }
+    cout << st.size() << endl;
     return 0;
 }

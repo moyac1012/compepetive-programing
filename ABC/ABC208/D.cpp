@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
+#include <atcoder/all>
+using namespace atcoder;
 #define rep(i,n) for(int i = 0; i < (int)(n); i++)
 #define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
 using Graph = vector<vector<int>>;
@@ -10,22 +12,29 @@ template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout 
 template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) return a; return gcd(b,a%b); }
 template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
 template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
-int INF = 1001001001;
+//mod mにおけるaの逆元を計算する
+template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
+int n,m;
+ll INF = 1001001001;
 
 int main(){
-    int n,m; cin >> n >> m;
-    vector<vector<int>> d(n,vector<int>(n,INF));
+    cin >> n;
+    vector<vector<ll>> d(n, vector<ll>(n, INF));
     rep(i,n) d[i][i] = 0;
+    cin >> m;
     rep(i,m){
-        int a,b,c; cin >> a >> b >> c;
+        ll a,b,c;
+        cin >> a >> b >> c;
         a--; b--;
         d[a][b] = c;
     }
     ll ans = 0;
-    rep(k,n){
-        rep(i,n)rep(j,n){
-            d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
-            if(d[i][j] != INF) ans += d[i][j];
+    rep(i,n){
+        rep(j,n){
+            rep(k,n){
+                d[j][k] = min(d[j][k], d[j][i] + d[i][k]);
+                if(d[j][k] != INF) ans += d[j][k];
+            }
         }
     }
     cout << ans << endl;

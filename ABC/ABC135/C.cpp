@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
+#include <atcoder/all>
+using namespace atcoder;
 #define rep(i,n) for(int i = 0; i < (int)(n); i++)
 #define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
 using Graph = vector<vector<int>>;
@@ -15,19 +17,18 @@ template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while
 
 int main(){
     int n; cin >> n;
-    vector<ll> a(n+1),b(n);
+    vector<ll> a(n+1), b(n);
     rep(i,n+1) cin >> a[i];
     rep(i,n) cin >> b[i];
     ll ans = 0;
     rep(i,n){
-        ll l = min(a[i], b[i]);
-        ans += l;
-        a[i] -= l;
-        b[i] -= l;
-        ll r = min(a[i+1], b[i]);
-        ans += r;
-        a[i+1] -= r;
-        b[i] -= r ;
+        ans += min(a[i], b[i]);
+        ll c = b[i];
+        b[i] = max(0LL, b[i] - a[i]);
+        a[i] = max(0LL, a[i] - c);
+        ans += min(a[i+1], b[i]);
+        a[i+1] = max(0LL, a[i+1] - b[i]);
+        //cout << b[i] << endl;
     }
     cout << ans << endl;
     return 0;

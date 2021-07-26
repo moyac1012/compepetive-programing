@@ -6,8 +6,8 @@ using namespace atcoder;
 #define rep(i,n) for(int i = 0; i < (int)(n); i++)
 #define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
 using Graph = vector<vector<int>>;
-const int dx[4] = {1, 0, -1, 0};
-const int dy[4] = {0, 1, 0, -1};
+const int dx[4] = {-1, 0, 1, 0};
+const int dy[4] = {0, -1, 0, 1};
 template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout << vec[i] << ' '; cout << endl; }
 template<typename T_n>T_n gcd(T_n a,T_n b){ if(a < b) swap(a, b); if(b == 0) return a; return gcd(b,a%b); }
 template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
@@ -19,30 +19,29 @@ int ans = 0;
 
 void dfs(vector<string> s){
     int cnt = 0;
-    rep(i,n)rep(j,n) if(s[i][j] == 'x') cnt++;
+    rep(i,n)rep(j,n) if(s[i][j] == '@') cnt++;
     if(cnt == k){
         ans++;
         return;
     }
+
     rep(i,n)rep(j,n){
         if(s[i][j] != '.') continue;
         if(cnt != 0){
-            bool ok = false;
+            bool f = false;
             rep(v,4){
-                int nh = i + dx[v], nw = j + dy[v];
-                if (nh < 0 || nw < 0 || nh >= n || nw >= n) continue;
-                if(s[nh][nw] == 'x') ok = true;
+                int nh = i + dy[v], nw = j + dx[v];
+                if(nh < 0 || nw < 0 || nh >= n || nw >= n) continue;
+                if(s[nh][nw] == '@') f = true;
             }
-            if(!ok) continue;
+            if(!f) continue; 
         }
-        
-        s[i][j] = 'x';
+        s[i][j] = '@';
         dfs(s);
         s[i][j] = '#';
         dfs(s);
         return;
     }
-
 }
 
 int main(){

@@ -22,10 +22,10 @@ int main(){
     vvi v(n+1, vi(3));
     Rep(i,1,n+1)rep(j,3) cin >> v[i][j];
     vvi dp(n+1, vi(3));
-    rep(i,3) dp[1][i] = v[0][i];
+    rep(i,3) dp[1][i] = v[1][i];
     Rep(i,2,n+1){
         rep(j,3){
-            dp[i][j] = max(v[i-1][(j+1)%3] + dp[i-1][j], v[i-1][(j+2)%3] + dp[i-1][j]);
+            dp[i][j] = max(v[i][j] + dp[i-1][(j+1)%3], v[i][j] + dp[i-1][(j+2)%3]);
         }
     }
     cout << max({dp[n][0], dp[n][1], dp[n][2]}) << endl;

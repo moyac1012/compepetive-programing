@@ -23,10 +23,20 @@ int main(){
     ll n, wm;
     cin >> n >> wm;
     vl w(n), v(n);
-    Rep(i,1,n+1) cin >> w[i] >> v[i];
-    vvl 
-    for(int i = 1; i <= n; i++){
-        for
+    rep(i,n) cin >> w[i] >> v[i];
+    const ll INF = 1e18;;
+    vector<vector<ll>> dp(110, vector<ll>(100010, INF));
+    dp[0][0] = 0;
+    for(int i = 0; i <= n; i++){
+        for(int j = 0; j <= 100010; j++){
+            if(j - v[i] >= 0) dp[i+1][j] = min(dp[i+1][j], dp[i][j-v[i]]+w[i]);
+            dp[i+1][j] = min(dp[i+1][j], dp[i][j]);
+        }
     }
+    ll ans = 0;
+    rep(i,100010){
+        if(dp[n][i] <= wm) ans = i;
+    }
+    cout << ans << endl;
     return 0;
 }

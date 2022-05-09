@@ -75,5 +75,6 @@
         "valarray": "cpp",
         "variant": "cpp"
     },
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "nuxt.isNuxtApp": false
 }

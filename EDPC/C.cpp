@@ -6,8 +6,7 @@ using namespace atcoder;
 #define rep(i,n) for(int i = 0; i < (int)(n); i++)
 #define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
 using Graph = vector<vector<int>>;
-using vi = vector<int>;
-using vvi = vector<vector<int>>;
+using P = pair<int, int>;
 const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout << vec[i] << ' '; cout << endl; }
@@ -19,15 +18,17 @@ template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while
 
 int main(){
     int n; cin >> n;
-    vvi v(n+1, vi(3));
-    Rep(i,1,n+1)rep(j,3) cin >> v[i][j];
-    vvi dp(n+1, vi(3));
-    rep(i,3) dp[1][i] = v[1][i];
-    Rep(i,2,n+1){
+    vector<vector<int>> a(n, vector<int>(3));
+    rep(i,n) cin >> a[i][0] >> a[i][1] >> a[i][2];
+    vector<vector<int>> dp(n, vector<int>(3));
+    dp[0][0] = a[0][0];
+    dp[0][1] = a[0][1];
+    dp[0][2] = a[0][2];
+    Rep(i,1,n){
         rep(j,3){
-            dp[i][j] = max(v[i][j] + dp[i-1][(j+1)%3], v[i][j] + dp[i-1][(j+2)%3]);
+            dp[i][j] = max({dp[i][j], dp[i-1][(j+1)%3]+a[i][j], dp[i-1][(j+2)%3]+a[i][j]});
         }
     }
-    cout << max({dp[n][0], dp[n][1], dp[n][2]}) << endl;
+    cout << max({dp[n-1][0], dp[n-1][1], dp[n-1][2]}) << endl;
     return 0;
 }

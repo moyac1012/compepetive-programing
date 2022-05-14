@@ -6,6 +6,7 @@ using namespace atcoder;
 #define rep(i,n) for(int i = 0; i < (int)(n); i++)
 #define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
 using Graph = vector<vector<int>>;
+using P = pair<int, int>;
 const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout << vec[i] << ' '; cout << endl; }
@@ -16,14 +17,15 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    int n,k; cin >> n >> k;
+    int n,k;
+    cin >> n >> k;
     vector<int> h(n+1);
     Rep(i,1,n+1) cin >> h[i];
-    vector<int> dp(n+1, 1001001001);
+    vector<int> dp(n+1, 1e9);
     dp[1] = 0;
     for(int i = 1; i <= n; i++){
-        for(int j = i+1; j <= i+k; j++){
-            if(j <= n) dp[j] = min(dp[j], dp[i] + abs(h[i] - h[j]));
+        for(int j = 1; j <= k; j++){
+            if(i+j <= n) dp[i+j] = min(dp[i+j], dp[i]+abs(h[i]-h[i+j]));
         }
     }
     cout << dp[n] << endl;

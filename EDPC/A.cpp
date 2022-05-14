@@ -6,6 +6,7 @@ using namespace atcoder;
 #define rep(i,n) for(int i = 0; i < (int)(n); i++)
 #define Rep(i,j,n) for(int i = j; i < (int)(n); i++)
 using Graph = vector<vector<int>>;
+using P = pair<int, int>;
 const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 template<typename T_n> void print_vec(vector<T_n> vec) { rep(i,vec.size()) cout << vec[i] << ' '; cout << endl; }
@@ -20,10 +21,9 @@ int main(){
     vector<int> h(n+1);
     for(int i = 1; i <= n; i++) cin >> h[i];
     vector<int> dp(1000005, 100001);
-    dp[1] = 0;bå
+    dp[1] = 0;
     dp[2] = abs(h[1] - h[2]);
     Rep(i,3,n+1) dp[i] = min(dp[i-1] + abs(h[i] - h[i-1]), dp[i-2] + abs(h[i] - h[i-2]));
     cout << dp[n] << endl;
-    
     return 0;
 }

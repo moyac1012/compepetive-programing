@@ -17,24 +17,17 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    int N,W;
-    cin >> N >> W;
-    vector<int> v(N), w(W);
-    rep(i,N) cin >> w[i] >> v[i+1];
-    vector<vector<int>> dp(N+1, vector<int>(W+1));
-    Rep(i,1,N+1){
-        Rep(j,0,W+1){
-            if(j-w[i]>=0) dp[i][j] = max(dp[i-1][j], dp[i-1][j-w[i]]+v[i]);
-            else dp[i][j] = dp[i-1][j];
-        }
-    }
-    int ans = dp[N][W];
-    rep(i,N+1){
-        rep(j,W+1){
-            cout << dp[i][j] << "\t";
-        }
+    string s;
+    cin >> s;
+    int n = s.length();
+    if(n == 1){
+        rep(i,6) cout << s;
         cout << endl;
+    }else if(n == 2){
+        rep(i,3) cout << s;
+        cout << endl;
+    }else{
+        cout << s + s << endl;
     }
-    cout << ans << endl;
     return 0;
 }

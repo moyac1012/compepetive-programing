@@ -17,24 +17,37 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    int N,W;
-    cin >> N >> W;
-    vector<int> v(N), w(W);
-    rep(i,N) cin >> w[i] >> v[i+1];
-    vector<vector<int>> dp(N+1, vector<int>(W+1));
-    Rep(i,1,N+1){
-        Rep(j,0,W+1){
-            if(j-w[i]>=0) dp[i][j] = max(dp[i-1][j], dp[i-1][j-w[i]]+v[i]);
-            else dp[i][j] = dp[i-1][j];
+    int n,w; cin >> n >> w;
+    vector<int> a(n);
+    rep(i,n) cin >> a[i];
+    set<int> S;
+    rep(i,n){
+        if(a[i] <= w) {
+            S.insert(a[i]);
         }
     }
-    int ans = dp[N][W];
-    rep(i,N+1){
-        rep(j,W+1){
-            cout << dp[i][j] << "\t";
+
+    rep(i,n){
+        rep(j,n){
+            if(i == j) continue;
+            if(a[i] + a[j] <= w) {
+                S.insert(a[i]+a[j]);
+            }
         }
-        cout << endl;
     }
-    cout << ans << endl;
+    sort(a.begin(), a.end());
+    rep(i,n){
+        Rep(j,i+1,n){
+            Rep(k,j+1,n){
+                if(i == j || j == k || i == k) continue;
+                if(a[i]+a[j]+a[k] <= w) {
+                    S.insert(a[i]+a[j]+a[k]);
+                }else{
+                    break;
+                }
+            }
+        }
+    }
+    cout << S.size() << endl;
     return 0;
 }

@@ -1,15 +1,13 @@
 # 競プロ勉強日誌
 
-[toc]
-
-
+[TOC]
 
 ## ユークリッドの互除法
 
 - 入力：整数 a, b
 - 出力：**aとbの最大公約数**
 
-``` c++
+```cpp
 int gcd(int a,int b){
     if(a < b) swap(a, b);
     while(a%b != 0){
@@ -26,25 +24,25 @@ int gcd(int a,int b){
 
 2021/3/5　追記　再帰で書いたほうが早い
 
-```c++
+```cpp
 int gcd(int a,int b){
-  	if(a < b) swap(a, b);	
-		if(b == 0) return a;
-		return gcd(b,a%b);
+      if(a < b) swap(a, b);    
+        if(b == 0) return a;
+        return gcd(b,a%b);
 }
 ```
-
-
 
 ### 最小公倍数
 
 - 整数a,bの最大公約数を$gcd(a, b)$とした時、最小公倍数$lcm(a, b)$は、
+  
   $$
   lcm(a, b) = \frac{ab}{gcd(a, b)}
   $$
+  
   と表せる。よって最小公倍数もユークリッドの互除法を用いて求められる。
-
-  ```c++
+  
+  ```cpp
   int lcm(int a, int b){
       return (a*b)/gcd(a, b);
   }
@@ -53,20 +51,18 @@ int gcd(int a,int b){
 #### Overflow を避ける
 
 - 上のコードだとa、bが非常に大きい時に、Overflowが起きることがあるので
-
-  ```c++
+  
+  ```cpp
   int lcm(int a, int b){
       return (a/gcd(a, b))*b;
   }
   ```
-
+  
   で解決できる。
 
 ### 整数除算の切り上げ
 
 - $\frac{a}{b}$の切り上げは一般に$\frac{a+b-1}{b}$を整数で計算することで得られる。 
-
-  
 
 ## 全探索
 
@@ -74,7 +70,7 @@ int gcd(int a,int b){
 
 [Qiita - bit全探索について簡単にまとめる](https://qiita.com/hareku/items/3d08511eab56a481c7db)
 
-```c++
+```cpp
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -102,7 +98,7 @@ int main() {
 
 標準出力：
 
-```C++
+```cpp
 0: {}
 1: {0 }
 2: {1 }
@@ -153,37 +149,37 @@ $S \in \mathbb{N}$で写像$f:S \rightarrow S$を考える。この時、$T\subs
 
 - 再帰での実装。これは無向グラフの`連結成分数`を数えている。
 
-```c++
-vector<bool> seen;	//節点vを訪問したかどうかを記憶する配列
+```cpp
+vector<bool> seen;    //節点vを訪問したかどうかを記憶する配列
 void dfs(Graph &G, int v){
-    seen[v] = true;	//入力節点vを訪問済みにする
-    for(auto next_v : G[v]) {		//すべてのvに隣接している節点について
-        if(seen[next_v]) continue;	//すでに探索済みだったらスルー
-        dfs(G, next_v);		//それ以外で、その点からdfsを始める
+    seen[v] = true;    //入力節点vを訪問済みにする
+    for(auto next_v : G[v]) {        //すべてのvに隣接している節点について
+        if(seen[next_v]) continue;    //すでに探索済みだったらスルー
+        dfs(G, next_v);        //それ以外で、その点からdfsを始める
     }
 }
 int main(){
    int n, m; 
    cin >> n >> m;
-	 Graph G(n);
+     Graph G(n);
     rep(i,n){
         G[b].push_back(a);
         G[a].push_back(b);
     }
 
-    seen.assign(n, false);	//seen配列をfalseで初期化
+    seen.assign(n, false);    //seen配列をfalseで初期化
     int cnt = 0;
-    for(int v = 0; v < n; v++){		//すべての節点からdfsを行う
-        if(seen[v]) continue;		//訪問済みならスルー
+    for(int v = 0; v < n; v++){        //すべての節点からdfsを行う
+        if(seen[v]) continue;        //訪問済みならスルー
         dfs(G, v);　//dfs
-        cnt++;	　//dfsが終わったら連結成分数を一個足す
+        cnt++;    　//dfsが終わったら連結成分数を一個足す
     }
 }
 ```
 
 ### グリッドグラフの迷路問題
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -197,15 +193,15 @@ vector<string> maze;
 
 bool seen[510][510] = {};
 void dfs(int sh, int sw){ //sh, swはスタート地点
-    seen[sh][sw] = 1;	//訪れたところをtrueにする
+    seen[sh][sw] = 1;    //訪れたところをtrueにする
 
     for(int i = 0;i < 4; i++){
         int nh = sh + dx[i];
-        int nw = sw + dy[i];	//4方向全てについて
+        int nw = sw + dy[i];    //4方向全てについて
 
-        if(nh < 0 || nw < 0 || nh >= h || nw >= w) continue;		//壁外
-        if(maze[nh][nw] == '#') continue;		//壁
-        if(seen[nh][nw] == 1) continue;			//訪問済み
+        if(nh < 0 || nw < 0 || nh >= h || nw >= w) continue;        //壁外
+        if(maze[nh][nw] == '#') continue;        //壁
+        if(seen[nh][nw] == 1) continue;            //訪問済み
 
         dfs(nh, nw);
     }
@@ -217,8 +213,8 @@ int main(){
     rep(i,h) cin >> maze[i];
     int sh, sw, gh, gw;
     rep(i,h)rep(j,w){
-        if(maze[i][j] == 's') sh = i, sw = j;		//スタートの特定
-        if(maze[i][j] == 'g') gh = i, gw = j;		//ゴールの特定
+        if(maze[i][j] == 's') sh = i, sw = j;        //スタートの特定
+        if(maze[i][j] == 'g') gh = i, gw = j;        //ゴールの特定
     }
 
     dfs(sh, sw);
@@ -246,7 +242,7 @@ int main(){
 
 で求められる。逆に言えば`v`の部分木サイズを求めるには、`v` の**全ての子についての部分木サイズがわかっている必要がある。**そのため、**帰りがけ**に計算を行う。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -255,7 +251,7 @@ using Graph = vector<vector<int>>;
 const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 vector<int> depth;  //深さ
-vector<int> subtree_size;	//部分木サイズ
+vector<int> subtree_size;    //部分木サイズ
 void dfs(const Graph &G, int v, int p, int d){
     depth[v] = d;
     for(auto next_v : G[v]){
@@ -311,7 +307,7 @@ int main(){
 
 オーバーキル。
 
-```c++
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 #define rep(i, n) for (int i = 0; i < (int)(n); i++)
@@ -352,21 +348,19 @@ int main()
 }
 ```
 
-
-
 ## C++のmapについて簡単に（連想配列）
 
 ### 宣言
 
-```c++
+```cpp
 map<string, int> m;
 ```
 
 多分よく使うのはこういう感じ
 
-```c++
+```cpp
 for(int i = 0; i < n; i++){
-	map[s[i]]++;	//自動でs[i]をmapに追加してインクリメントしてくれる
+    map[s[i]]++;    //自動でs[i]をmapに追加してインクリメントしてくれる
 }
 ```
 
@@ -374,7 +368,7 @@ for(int i = 0; i < n; i++){
 
 コンテナなので型は`auto`で推論してイテレータぶん回せばOK
 
-```c++
+```cpp
 for (auto i = cnt.begin(); i != cnt.end(); ++i) {
         cout << i->first << " => " << i->second << endl;
     }
@@ -382,7 +376,7 @@ for (auto i = cnt.begin(); i != cnt.end(); ++i) {
 
 これだと昇順なので、降順に検索したいときは`rbegin`、`rend`を使う。
 
-```c++
+```cpp
 for (auto i = cnt.rbegin(); i != cnt.rend(); ++i) {
         cout << i->first << " => " << i->second << endl;
     }
@@ -413,8 +407,6 @@ C++
 n == 10 ? x = "Yes" : "No";
 ```
 
-
-
 ## 約数列挙
 
 `N`が`a`で割り切れる時、`N/a`も約数に追加することで`O(√n)`で実装できる。
@@ -427,7 +419,7 @@ n == 10 ? x = "Yes" : "No";
 
 解説放送のこのコード天才的すぎる
 
-```c++
+```cpp
 ll c[n][m];
 c[0][0] = 1;
 rep(i,n){
@@ -456,9 +448,8 @@ rep(i,n){
 1. **$i$ と $x$ が与えられたとき、$𝑎_i$ に $x$ を加算する**
 
 2. **$i$ が与えられたとき、$a_1+a_2+ \dots +a_i$ を求める**
-
+   
    が$O(\log n)$でできるデータ構造。
-
 - `BinaryIndexedTree<int> bit(n)` := サイズ`n`の初期化。
 - `add(l, r, x)` := 半開区間 `[l, r)`に`x`を加算。
 - `sum(i)` := `a0`から`ai`までの和を返す。
@@ -470,4 +461,3 @@ defaults write com.apple.screencapture location ~/(保存先dir)/;killall System
 ```
 
 ## 
-

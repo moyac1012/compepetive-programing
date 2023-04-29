@@ -18,14 +18,18 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    int n,x; cin >> n >> x;
-    rep(i,n) {
-        int a; cin >> a;
-        if(x == a){
-            cout << "Yes" << endl;
-            return 0;
+    int h,w; cin >> h >> w;
+    rep(i,h){
+        string s; cin >> s;
+        rep(j,w){
+            if(j+1 < w){
+                if(s[j] == 'T' && s[j+1] == 'T'){
+                    s[j] = 'P';
+                    s[j+1] = 'C';
+                }
+            }
         }
+        cout << s << endl;
     }
-    cout << "No" << endl;
     return 0;
 }

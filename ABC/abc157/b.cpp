@@ -18,17 +18,48 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    vector<string> s(8);
-    rep(i,8) cin >> s[i];
-    int h,w;
-    rep(i,8){
-        rep(j,s[i].length()){
-            if(s[i][j] == '*'){
-                h = i; w = j;
+    vector<vector<int>> a(3, vector<int>(3));
+    vector<vector<int>> bingo(3, vector<int>(3));
+    rep(i,3)rep(j,3) cin >> a[i][j];
+    int n; cin >> n;
+
+    rep(i,n){
+        int b; cin >> b;
+        rep(j,3){
+            rep(k,3){
+                if(a[j][k]==b) bingo[j][k] = 1;
             }
         }
     }
-    h = 7 - h;
-    cout << alp[w] << h+1<<endl;
+    int tot = 0;
+    rep(i,3){
+        tot = 0;
+        rep(j,3){
+            tot += bingo[i][j];
+        }
+        if(tot == 3){
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+
+    rep(i,3){
+        tot = 0;
+        rep(j,3){
+            tot += bingo[j][i];
+        }
+        if(tot == 3){
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+
+    if(bingo[0][0] + bingo[1][1] + bingo[2][2] == 3|| bingo[0][2] + bingo[1][1] + bingo[2][0] == 3){
+        cout << "Yes" << endl;
+        return 0;
+    }
+
+    cout << "No" << endl;
+
     return 0;
 }

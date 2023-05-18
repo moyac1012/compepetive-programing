@@ -18,17 +18,22 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
-    vector<string> s(8);
-    rep(i,8) cin >> s[i];
-    int h,w;
-    rep(i,8){
-        rep(j,s[i].length()){
-            if(s[i][j] == '*'){
-                h = i; w = j;
+    int n; cin >> n;
+    vector<int> a(n);
+    rep(i,n) cin >> a[i];
+    rep(i,n-1){
+        if(a[i] < a[i+1]){
+            for(int j = a[i]+1; j <= a[i+1]; j++){
+                if(i == 0 && j == a[i]+1) cout << a[i] << " ";
+                cout << j << " ";
+            }
+        }else{
+            for(int j = a[i]-1; j >= a[i+1]; j--){
+                if(i == 0 && j == a[i]-1) cout << a[i] << " ";
+                cout << j << " ";
             }
         }
     }
-    h = 7 - h;
-    cout << alp[w] << h+1<<endl;
+    cout << endl;
     return 0;
 }

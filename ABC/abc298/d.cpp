@@ -17,31 +17,24 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 //mod mにおけるaの逆元を計算する
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
-
+using mint = modint998244353;
 
 int main(){
     int q; cin >> q;
-    vector<int> s;
-    s.push_back(1);
-    int r = 0;
-    ll MOD = 998244353;
-    rep(qi, q){
-        int i; cin >> i;
-        if(i == 1){
-            ll x; cin >> x;
+    deque<int> s(1,1);
+    mint ans = 1;
+
+    rep(qi,q){
+        int t; cin >> t;
+        if(t == 1){
+            int x; cin >> x;
             s.push_back(x);
-        }else if(i == 2){
-            r += 1;
+            ans = ans*10 + x;
+        }else if(t == 2){
+            ans -= mint(10).pow(s.size()-1) * s.front();
+            s.pop_front();
         }else{
-            ll ans = 0;
-            ll cnt = 0;
-            for(int i=s.size()-1; i >= r; i--){
-                ans += s[i]*pow_mod(10, cnt, MOD);
-                ans %= MOD;
-                cnt++;
-            }
-            cout << ans << endl;
+            cout << ans.val() << endl;
         }
     }
-    return 0;
 }

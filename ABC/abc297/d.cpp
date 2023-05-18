@@ -20,18 +20,12 @@ template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while
 int main(){
     ll a,b; cin >> a >> b;
     ll ans = 0;
-    while(a != b){
-        if(a > b){
-            ans += ll(a/b);
-            if (a%b != 0) a %= b;
-            else a = 1;
-        }else{
-            ans += ll(b/a);
-            if (b%a != 0) b %= a;
-            else b = 1;
-        }
-    }
-    cout << ans << endl;
-
+    if(a < b) swap(a,b);
+    while(b > 0){
+        ans += a/b;
+        a %= b;
+        swap(a,b);        
+   }
+   cout << ans-1 << endl;
     return 0;
 }

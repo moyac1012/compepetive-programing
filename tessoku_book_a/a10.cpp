@@ -21,6 +21,17 @@ int main(){
     int n; cin >> n;
     vector<int> a(n);
     rep(i,n) cin >> a[i];
-
+    int d; cin >> d;
+    vector<int> l(d), r(d);
+    rep(i,d) cin >> l[i] >> r[i];
+    vector<int> p(n), q(n);
+    p[0] = a[0];
+    q[n-1] = a[n-1];
+    Rep(i,1,n) p[i] = max(p[i-1], p[i]);
+    for(int i = n-2; i >= 0; i--){
+        q[i] = max(q[i], q[i-1]);
+    }
+    print_vec(p);
+    print_vec(q);
     return 0;
 }

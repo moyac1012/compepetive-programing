@@ -31,7 +31,7 @@ int main(){
     Rep(i,1,h+1)Rep(j,1,w+1) sum[i][j] += sum[i][j-1];
     Rep(i,1,h+1){
         Rep(j,1,w+1) {
-            cout << sum[i][j] << " ";
+            cout << sum[i][j] << " "; 
         }
         cout << endl;
     }

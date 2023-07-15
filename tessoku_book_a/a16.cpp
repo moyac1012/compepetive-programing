@@ -16,20 +16,19 @@ template<typename T_n> T_n lcm(T_n a, T_n b){ return (a/gcd(a, b))*b; }
 template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if (n == 1) return a % p; if (n % 2 == 1) return (a * modPow(a, n - 1, p)) % p; ll t = modPow(a, n / 2, p); return (t * t) % p; }
 //mod mにおけるaの逆元を計算する
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
-int n;
-vector<int> a;
 
 int main(){
-    cin >> n; a.resize(n);
-    rep(i,n) cin >> a[i];
-    set<int> st;
-    rep(i,n) st.insert(a[i]);
-    vector<int> v(st.begin(), st.end());
-    vector<int> ans;
-    rep(i,n){
-        auto iter = lower_bound(v.begin(), v.end(), a[i]);
-        ans.push_back(iter - v.begin()+1);
+    int n; cin >> n;
+    vector<int> a(n+1), b(n+1);
+    for(int i = 2; i <= n; i++) cin >> a[i];
+    for(int i = 3; i <= n; i++) cin >> b[i];
+    vector<int> dp(n+1);
+    for(int i = 1; i <= n; i++){
+        if(i >= 3) dp[i] = min(dp[i-1]+a[i], dp[i-2]+b[i]);
+        else if(i >= 2) dp[i] = dp[i-1]+a[i];
     }
-    print_vec(ans);
+    cout << dp[n] << endl;
+
+    
     return 0;
 }

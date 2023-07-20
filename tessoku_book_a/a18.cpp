@@ -18,6 +18,22 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
+    int n,s;
+    cin >> n >> s;
+    vector<int> a(n+1);
+    Rep(i,1,n+1) cin >> a[i];
+    // dp[i][j] := カードiまでのなかでjを作ることは可能か？
+    vector<vector<int>> dp(n+1, vector<int>(s+1));
+    rep(i,n+1) dp[i][0] = 1;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= s; j++){
+            if(dp[i-1][j]) dp[i][j] = 1;
+            if(j - a[i] >= 0) if(dp[i-1][j-a[i]] == 1) dp[i][j] = 1;
+        }
+    }
+    // rep(i,n+1) print_vec(dp[i]);
+    if(dp[n][s] == 1) cout << "Yes" << endl;
+    else cout << "No" << endl;
 
     return 0;
 }

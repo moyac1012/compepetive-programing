@@ -18,6 +18,30 @@ template<typename T_n> T_n modPow(T_n a, T_n n, T_n p){ if (n == 0) return 1; if
 template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while (b) { T_n t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); } u %= m; if (u < 0) u += m; return u; }
 
 int main(){
+    int n; cin >> n;
+    vector<int> a(n+1), b(n+1);
+    for(int i = 2; i <= n; i++) cin >> a[i];
+    for(int i = 3; i <= n; i++) cin >> b[i];
+    vector<int> dp(n+1);
+    dp[1] = 0;
+    dp[2] = a[2];
+    for(int i = 3; i <= n; i++) dp[i] = min(dp[i-1]+a[i], dp[i-2]+b[i]);
+    int p = n;
+    vector<int> ans;
+    while(true){
+        ans.push_back(p);
+        if(p == 1) break;
+
+        if(dp[p-1] + a[p] == dp[p]) p = p-1;
+        else p = p-2;
+    }
+
+    reverse(ans.begin(), ans.end());
+
+    cout << ans.size() << "\n";
+    rep(i,ans.size()) cout << ans[i] << " ";
+    cout << "\n";
+    
 
     return 0;
 }

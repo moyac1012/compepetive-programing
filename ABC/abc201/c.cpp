@@ -19,15 +19,15 @@ template<typename T_n> T_n modinv(T_n a, T_n m) { T_n b = m, u = 1, v = 0; while
 string s;
 bool check(int i){
     string num = to_string(i);
-    while(num.size < 4) num = "0" + num;
+    while(num.size() < 4) num = "0" + num;
     map<char, int> mp;
     for(char x : num) mp[x]++;
     rep(i,s.length()){
         if(s[i] == 'o'){
-            if(mp[i] == 0) return false;
+            if(mp.count(i + '0') == 0) return false;
         }
         if(s[i] == 'x'){
-            if(mp[i] != 0) return false;
+            if(mp.count(i + '0') != 0) return false;
         }
     }
     return true;
@@ -36,7 +36,7 @@ bool check(int i){
 int main(){
     cin >> s;
     int cnt = 0;
-    for(int i = 1; i <= 9999; int++){
+    for(int i = 0; i <= 9999; i++){
         if(check(i)) cnt++;
     }
     cout << cnt << endl;

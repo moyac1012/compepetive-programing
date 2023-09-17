@@ -60,6 +60,17 @@ template <typename T> inline bool chmax(T& a, const T& b) {bool compare = a < b;
 
 int main() {
     // code
-
+    char vow[5] = { 'a', 'e', 'i', 'o', 'u'};
+    string s; cin >> s;
+    string ans = "";
+    rep(i,s.length()){
+        bool flag = true;
+        rep(j,5){
+            if(s[i] == vow[j]) flag = false;
+        }
+        if(flag) ans += s[i];
+    }
+    print(ans);
     return 0;
+    
 }

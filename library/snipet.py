@@ -25,4 +25,4 @@ if __name__ == '__main__':
     src_dir='/Users/tamoriyuuto/compepetive-programing/library/src/lib.txt'
     dest_dir='/Users/tamoriyuuto/compepetive-programing/library/snippet/'
 
-    cpp_snippet('Matrix',src_dir, dest_dir)
+    cpp_snippet('binary_search',src_dir, dest_dir)

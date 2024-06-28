@@ -1,0 +1,16 @@
+"binary_search" : {
+		"prefix" : "binary_search",
+		"body": [
+			"int binary_search(int key) {",
+			"    int ng = -1;",
+			"    int ok = (int)a.size();",
+			"",
+			"    while (abs(ok - ng) > 1) {",
+			"        int mid = (ok + ng) / 2;",
+			"        if (isOK(mid, key)) ok = mid;",
+			"        else ng = mid;",
+			"    }",
+			"    return ok;",
+			"}",
+		],		"description" : "binary_search"
+	},
